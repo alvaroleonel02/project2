@@ -11,7 +11,7 @@
         justify-content: center;
         height: 100vh;
         margin: 0;
-        background-color: #f83737;      
+        background-color: #37f857;
       }
 
       .card {
@@ -32,6 +32,7 @@
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
+        position: relative; /* necessário para posicionar elementos internos */
       }
 
       .card > .question p {
@@ -71,16 +72,18 @@
       .answer {
         display: none;
         position: absolute;
+        bottom: 20px;   /* fixa no rodapé do card */
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
       }
 
       .answer > p {
-        font-size: 3vw; /* relativo à tela */
+        font-size: 6vw; /* relativo à tela */
         font-family: sans-serif;
         font-weight: bold;
         color: #ffffff;
-        text-shadow: 2px 2px #000;
-        align-items: center;
-        margin-bottom: 500px;
+        text-shadow: 1px 1px #000;
       }
     </style>
   </head>
@@ -95,7 +98,7 @@
       </div>
 
       <div class="answer" id="answer">
-        <p>Eu sabiaaaaa! Te amo 😍💗</p>
+        <p>Eu sabia! Te amo 😍💗</p>
       </div>
     </div>
 
@@ -111,14 +114,17 @@
           card.style.backgroundImage =
             "url('https://i.ibb.co/PZpWfVnJ/1000012226.jpg')";
           question.style.display = "none";
-          message.style.display = "flex";
+          message.style.display = "block";
         }
 
         document.querySelector("#yes").addEventListener("click", mostrarResposta);
         document.querySelector("#yes").addEventListener("touchstart", mostrarResposta);
 
         // Movimento aleatório do botão 'não'
-        function fugir() {
+        function fugir(event) {
+          event.preventDefault();
+          event.stopPropagation();
+
           let width = window.innerWidth - this.offsetWidth;
           let height = window.innerHeight - this.offsetHeight;
 
@@ -129,7 +135,6 @@
 
         let btnNo = document.querySelector("#no");
         btnNo.addEventListener("mouseover", fugir);   // desktop
-        btnNo.addEventListener("click", fugir);       // mobile
         btnNo.addEventListener("touchstart", fugir);  // mobile
       });
     </script>
